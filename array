@@ -1,0 +1,97 @@
+Index.html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Top Choices</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h1>My Top Choices</h1>
+  <ul id="choicesList"></ul>
+  <input type="text" id="choiceInput" placeholder="Enter your choice">
+  <button id="addButton">Add Choice</button>
+
+  <script src="script.js"></script>
+</body>
+</html>
+
+
+Script.js
+function getOrdinalSuffix(number) {
+    const ones = number % 10;
+    const tens = Math.floor(number / 10) % 10;
+  
+    if (tens === 1) {
+      return "th";
+    } else if (ones === 1) {
+      return "st";
+    } else if (ones === 2) {
+      return "nd";
+    } else if (ones === 3) {
+      return "rd";
+    } else {
+      return "th";
+    }
+  }
+  
+  const choicesList = document.getElementById('choicesList');
+  const choiceInput = document.getElementById('choiceInput');
+  const addButton = document.getElementById('addButton');
+  
+  let choices = []; // Array to store user-entered choices
+  
+  addButton.addEventListener('click', () => {
+    const newChoice = choiceInput.value.trim(); // Trim whitespace
+  
+    if (!newChoice) { // Check for empty input
+      alert('Please enter a choice.');
+      return;
+    }
+  
+    choices.push(newChoice); // Add choice to the array
+    choiceInput.value = ''; // Clear the input field
+  
+    updateChoicesList();
+  });
+  
+  function updateChoicesList() {
+    choicesList.innerHTML = ''; // Clear previous entries
+  
+    for (let i = 0; i < choices.length; i++) {
+      const ordinal = i + 1;
+      const suffix = getOrdinalSuffix(ordinal);
+      const listItem = document.createElement('li');
+      listItem.textContent = `My ${ordinal}${suffix} choice is ${choices[i]}.`;
+      choicesList.appendChild(listItem);
+    }
+  }
+  
+
+style.css
+body {
+    font-family: sans-serif;
+    margin: 20px;
+    text-align: center; /* Center elements horizontally */
+  }
+  
+  ul {
+    list-style: none;
+    margin: 0 auto; /* Center the list horizontally */
+    width: 300px; /* Set fixed width for the list */
+    border: 1px solid #ddd; /* Simple border */
+    padding: 10px; /* Padding inside the list */
+  }
+  
+  button {
+    padding: 5px; /* Consistent padding for input and button */
+    border: 1px solid #ccc; /* Simple border */
+    border-radius: 3px; /* Rounded corners */
+    margin-bottom: 10px; /* Spacing below input and button */
+  }
+  
+  button {
+    background-color: #4CAF50; /* Green background for button */
+    color: white; /* White text for button */
+  }
