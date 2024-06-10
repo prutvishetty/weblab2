@@ -1,0 +1,71 @@
+Index.html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pluralizer</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h1>Pluralizer</h1>
+  <p>Enter a number and a noun:</p>
+  <input type="number" id="numberInput" placeholder="Number">
+  <input type="text" id="nounInput" placeholder="Noun">
+  <button id="pluralizeButton">Pluralize</button>
+  <p id="output"></p>
+
+  <script src="script.js"></script>
+</body>
+</html>
+
+
+Script.js
+const pluralize = (number, noun) => {
+    // Handle irregular plurals and collective nouns (consider expanding this as needed)
+    const irregularPlurals = {
+      sheep: 'sheep',
+      goose: 'geese',
+      mouse: 'mice',
+      person: 'people',
+      child: 'children',
+      deer: 'deer',
+      species: 'species',
+      series: 'series',
+      fish: 'fish',
+      information: 'information',
+      equipment: 'equipment',
+    };
+  
+    if (irregularPlurals[noun.toLowerCase()]) {
+      return `${number} ${irregularPlurals[noun.toLowerCase()]}`;
+    }
+  
+    // Handle singular and regular plurals
+    const pluralForm = number === 1 ? noun : noun.endsWith('s') || noun.endsWith('x') ? noun : noun + 's';
+    return `${number} ${pluralForm}`;
+  };
+  
+  const getInputValue = (id) => document.getElementById(id).value;
+  
+  const setOutputValue = (value) => {
+    const outputElement = document.getElementById('output');
+    outputElement.textContent = value;
+  };
+  
+  document.addEventListener('DOMContentLoaded', () => {
+    const pluralizeButton = document.getElementById('pluralizeButton');
+  
+    pluralizeButton.addEventListener('click', () => {
+      const number = parseInt(getInputValue('numberInput'));
+      const noun = getInputValue('nounInput');
+  
+      if (isNaN(number)) {
+        setOutputValue('Please enter a valid number.');
+        return;
+      }
+  
+      const pluralizedSentence = pluralize(number, noun);
+      setOutputValue(pluralizedSentence);
+    });
+  });
