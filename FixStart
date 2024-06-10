@@ -1,0 +1,54 @@
+index.html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fix Start Function</title>
+    <link rel="stylesheet" href="style.css"> </head>
+<body>
+    <h1>Fix Start Function</h1>
+    <p>Enter a string:</p>
+    <input type="text" id="inputString">
+    <button id="fixStartButton">Fix String</button>
+    <p id="output"></p>
+
+    <script src="script.js"></script>  </body>
+</html>
+
+
+Script.js
+function fixStart(str) {
+    // Handle empty string or strings with only one character
+    if (str.length <= 1) {
+      return str;
+    }
+  
+    const firstChar = str[0];
+    const restOfString = str.slice(1);
+    const replacedString = restOfString.replace(new RegExp(firstChar, 'g'), '*');
+    return firstChar + replacedString;
+  }
+  
+  function getInputValue() {
+    const inputElement = document.getElementById("inputString");
+    return inputElement.value;
+  }
+  
+  function setOutputValue(output) {
+    const outputElement = document.getElementById("output");
+    outputElement.textContent = output;
+  }
+  
+  // Add event listener after the DOM is loaded (ensures button exists)
+  window.onload = function() {
+    const fixStartButton = document.getElementById('fixStartButton');
+    fixStartButton.addEventListener('click', function() {
+      const userInput = getInputValue();
+      const fixedString = fixStart(userInput);
+      setOutputValue(fixedString);
+    });
+  };
+  
+
+
