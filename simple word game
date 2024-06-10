@@ -1,0 +1,128 @@
+Index.html
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Word Guessing Game</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h1>Word Guessing Game</h1>
+  <div id="game-container">
+    <p id="hidden-word"></p>
+    <p id="reward">Reward: $<span id="reward-amount">0</span></p>
+    <input type="text" id="guess-input" placeholder="Guess a letter">
+    <button id="guess-button">Guess</button>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
+
+
+
+Script.js
+// Global variables
+let word = ['F', 'O', 'X']; // Replace with your word
+let guessedLetters = word.map(() => '_'); // Hidden word placeholders
+let reward = 0;
+let wrongGuesses = new Set(); // Keeps track of used letters
+
+// Function to guess a letter
+function guessLetter(letter) {
+  letter = letter.toUpperCase(); // Ensure uppercase for case-insensitive matching
+  let found = false;
+
+  // Check if letter is already guessed
+  if (wrongGuesses.has(letter) || guessedLetters.includes(letter)) return;
+
+  // Check for matching letters
+  for (let i = 0; i < word.length; i++) {
+    if (word[i] === letter) {
+      guessedLetters[i] = letter;
+      found = true;
+    }
+  }
+
+  // Update game state based on guess
+  if (found) {
+    reward += Math.floor(Math.random() * 100); // Random reward for each letter
+    console.log(`Great guess! You found a letter. Current word: ${guessedLetters.join('')}`);
+
+    // Check for win condition
+    if (guessedLetters.join('') === word.join('')) {
+      console.log(`Congratulations! You guessed the word and won with a reward of $${reward}`);
+      guessButton.disabled = true; // Disable guess button on win
+      return; // Exit function early on win
+    }
+  } else {
+    wrongGuesses.add(letter);
+    console.log(`Oops! '${letter}' is not in the word.`);
+  }
+}
+
+// DOM elements
+const hiddenWordElement = document.getElementById('hidden-word');
+const rewardAmountElement = document.getElementById('reward-amount');
+const guessInput = document.getElementById('guess-input');
+const guessButton = document.getElementById('guess-button');
+
+// Start game with hidden word
+hiddenWordElement.textContent = guessedLetters.join('');
+
+// Function to handle guess button click
+guessButton.addEventListener('click', () => {
+  const guess = guessInput.value.trim();
+  if (guess) {
+    guessLetter(guess);
+    guessInput.value = ''; // Clear input field after guess
+    hiddenWordElement.textContent = guessedLetters.join('');
+    rewardAmountElement.textContent = reward;
+  }
+});
+
+
+Style.css
+body {
+    font-family: sans-serif;
+    margin: 0;
+    padding: 20px;
+  }
+  
+  h1 {
+    text-align: center;
+  }
+  
+  #game-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  #hidden-word {
+    font-size: 24px;
+  }
+  
+  #reward {
+    font-weight: bold;
+  }
+  
+  #guess-input {
+    padding: 5px;
+    border: 1px solid #ccc;
+  }
+  
+  #guess-button {
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+  }
+  
+  #guess-button:hover {
+    background-color: #3e8e41;
+  }
+  
