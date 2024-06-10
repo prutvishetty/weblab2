@@ -1,0 +1,61 @@
+index.html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Not Bad Function</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Not Bad Function</h1>
+    <p>Enter a sentence:</p>
+    <input type="text" id="inputSentence">
+    <button id="fixSentenceButton">Fix Sentence</button>
+
+    <p id="output"></p>
+
+    <script src="script.js"></script>
+</body>
+</html>
+
+
+Script.js
+function notBad(sentence) {
+    // Find the index of 'not' and 'bad' (considering case sensitivity)
+    const notIndex = sentence.toLowerCase().indexOf('not');
+    const badIndex = sentence.toLowerCase().indexOf('bad');
+  
+    // Check if 'not' and 'bad' are found and in the correct order
+    if (notIndex !== -1 && badIndex !== -1 && badIndex > notIndex) {
+      return sentence.slice(0, notIndex) + 'good' + sentence.slice(badIndex + 3);
+    } else {
+      return sentence;
+    }
+  }
+  
+  function getInputValue() {
+    const inputElement = document.getElementById("inputSentence");
+    return inputElement.value;
+  }
+  
+  function setOutputValue(output) {
+    const outputElement = document.getElementById("output");
+    outputElement.textContent = output;
+  }
+  
+  // Ensure script execution after window.onload
+  window.onload = function() {
+    const fixSentenceButton = document.getElementById('fixSentenceButton');
+  
+    // Error handling (optional): Check for button existence
+    if (fixSentenceButton) {
+      fixSentenceButton.addEventListener('click', function() {
+        const userInput = getInputValue();
+        const fixedSentence = notBad(userInput);
+        setOutputValue(fixedSentence);
+      });
+    } else {
+      console.error("Button element not found (fixSentenceButton)");
+    }
+  };
