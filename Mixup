@@ -1,0 +1,70 @@
+HTML
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>MixUp Function</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h1>MixUp Function</h1>
+  <input type="text" id="inputStr1" placeholder="Enter first string">
+  <input type="text" id="inputStr2" placeholder="Enter second string">
+  <button onclick="mixUpStrings()">Mix Up!</button>
+  <div id="output"></div>
+  <script src="script.js"></script>
+</body>
+</html>
+
+
+CSS
+body {
+    font-family: sans-serif;
+    text-align: center;
+  }
+  
+  h1 {
+    margin-top: 20px;
+  }
+  
+  input {
+    padding: 10px;
+    margin: 10px;
+    border: 1px solid #ccc;
+  }
+  
+  button {
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+  }
+  
+  #output {
+    margin-top: 20px;
+    padding: 10px;
+    border: 1px solid #ccc;
+  }
+
+JAVA
+function mixUp(str1, str2) {
+    if (str1.length < 2 || str2.length < 2) {
+      return "Invalid input: Both strings must be at least 2 characters long.";
+    }
+    
+    const first2Str1 = str1.slice(0, 2);
+    const remainingStr1 = str1.slice(2);
+    const first2Str2 = str2.slice(0, 2);
+    const remainingStr2 = str2.slice(2);
+  
+    return first2Str2 + remainingStr1 + " " + first2Str1 + remainingStr2;
+  }
+  
+  function mixUpStrings() {
+    const inputStr1 = document.getElementById("inputStr1").value;
+    const inputStr2 = document.getElementById("inputStr2").value;
+    const mixedUpString = mixUp(inputStr1, inputStr2);
+    
+    document.getElementById("output").textContent = mixedUpString;
+  }
