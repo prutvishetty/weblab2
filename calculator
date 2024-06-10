@@ -1,0 +1,98 @@
+HTML
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>JavaScript Calculator</title>
+  <link rel="stylesheet" href="styles.css"> </head>
+<body>
+  <h1>JavaScript Calculator</h1>
+  <input type="number" id="inputNumber" placeholder="Enter a number">
+  <button onclick="complexCalculation()">Calculate</button>
+  <div id="output"></div>
+  <script src="script.js"></script> </body>
+</html>
+
+
+  JAVA-SCRIPT
+  function squareNumber(number) {
+    const result = number * number;
+    console.log(`The result of squaring the number ${number} is ${result}.`);
+    return result;
+  }
+  
+  function halfNumber(number) {
+    const result = number / 2;
+    console.log(`Half of ${number} is ${result.toFixed(2)}.`);
+    return result;
+  }
+  
+  function percentOf(num1, num2) {
+    const result = (num1 / num2) * 100;
+    console.log(`${num1} is ${result.toFixed(2)}% of ${num2}.`);
+    return result;
+  }
+  
+  function areaOfCircle(radius) {
+    const area = Math.PI * radius * radius;
+    console.log(`The area for a circle with radius ${radius} is ${area.toFixed(2)}.`);
+    return area;
+  }
+  
+  function complexCalculation() {
+    const inputNumber = document.getElementById("inputNumber").value;
+    if (isNaN(inputNumber)) {
+      alert("Please enter a valid number!");
+      return;
+    }
+    
+    const number = parseFloat(inputNumber); // Convert input to number
+    const half = halfNumber(number);
+    const squaredHalf = squareNumber(half);
+    const circleArea = areaOfCircle(squaredHalf);
+    const percentOfSquared = percentOf(circleArea, squaredHalf);
+  
+    const outputText = `
+      ----- Complex Calculation Results -----<br>
+      Half of ${number} is ${half.toFixed(2)}.<br>
+      Squaring ${half.toFixed(2)} gives ${squaredHalf}.<br>
+      The area of the circle with radius ${squaredHalf.toFixed(2)} is ${circleArea.toFixed(2)}.<br>
+      ${circleArea.toFixed(2)} is ${percentOfSquared.toFixed(2)}% of ${squaredHalf}.
+    `;
+  
+    document.getElementById("output").innerHTML = outputText;
+  }
+
+
+CSS
+body {
+    font-family: sans-serif;
+    text-align: center;
+    padding: 100px;
+
+  }
+  
+  h1 {
+    margin-top: 20px;
+  }
+  
+  input {
+    padding: 10px;
+    margin: 10px;
+    border: 1px solid #ccc;
+  }
+  
+  button {
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+  }
+  
+  #output {
+    margin-top: 20px;
+    padding: 10px;
+    border: 1px solid #ccc;
+  }
+  
